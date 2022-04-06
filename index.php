@@ -1,180 +1,456 @@
-<?php 
-  include 'functions.php';
-  $user = mysqli_fetch_assoc($s);
-  $about = mysqli_fetch_assoc($r);
-
-  $project = data ("SELECT * FROM project");
-?>
-<?php 
-  if (isset($_POST ["submit"])){
-    $email = $_POST ["email"];
-    $nama = $_POST ["nama_k"];
-    $pesan = $_POST ["pesan"];
-
-    $query = "INSERT INTO contact 
-              VALUES 
-              ('', '$email', '$nama', '$pesan')
-              ";
-              mysqli_query ($koneksi, $query);
-  }
-?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI DESI KURNIASARI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
-  </head>
-  <body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #fff">
-      <div class="container">
-        <a class="navbar-brand" href="#">SMKN 4 TASIKMALAYA</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class=" ok nav-item">
-              <a class="nav-link" href="#about">About</a>
-            </li>
-            <li class="ok nav-item">
-              <a class="nav-link" href="#project">Project</a>
-            </li>
-            <li class="ok nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!--Akhir Navbar-->
-    <!--jumbotron-->
-    <div class="jumbotron text-center">
-      <br />
-      <img src="desi.jpg.jpeg" alt="" width="400px" class="rounded-circle img-thumbnail" />
-      <br />
-      <br />
-      <h1 class="display-4" style="font-family: Verdana">AI DESI KURNIASARI<span style="font-size: 37px">&#128156;</span></h1>
-      <h1><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></h1>
-      <br />
-      <p class="lead" style="font-size: 170%"><b><?= $user["jabatan"];?> | <?= $user["perusahaan"];?></b></p>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#ffff"
-          fill-opacity="1"
-          d="M0,256L48,240C96,224,192,192,288,192C384,192,480,224,576,213.3C672,203,768,149,864,154.7C960,160,1056,224,1152,213.3C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-        ></path>
-      </svg>
-    </div>
-    <!--jumotron-->
-    <!--about-->
-    <section id="about">
-      <div>
-        <div class="row text-center">
-          <h2>About Me <i class="bi bi-emoji-smile"></i></h2>
-        </div>
-        <div class="row justify-content-center fs-5">
-          <div class="col-sm-4">
-            <p><?= $about["coloumn1"];?></p>
-          </div>
-          <div class="col-sm-4">
-            <p><?= $about["coloumn2"];?><span style="font-size: 18px">&#127775;</span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#3bedb5"
-          fill-opacity="1"
-          d="M0,256L48,240C96,224,192,192,288,192C384,192,480,224,576,213.3C672,203,768,149,864,154.7C960,160,1056,224,1152,213.3C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-        ></path>
-      </svg>
-
-      <!--akhir about-->
-      <!--project-->
-      <section id="project">
-        <div class="container">
-          <div class="row text-center">
-            <h2><span style="font-size: 30px">&#127775;</span>Project <span style="font-size: 30px">&#127775;</span></h2>
-          </div>
-          <div class="row justify-content-evenly fs-5">
-          <?php foreach ($project as $pro) { ?>
-            <div class="col-sm-4">
-              <div class="card">
-                <img src="img/<?= $pro["foto"];?>" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <p class= "card-text"><?= $pro["nama_p"];?></p>
-                  <p class="card-text"><?= $pro["keterangan"];?></p>
-                </div>                   
+<?php include 'header.php'?>
+<?php include 'menu.php'?>
+      <!-- End Navbar -->
+      <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">weekend</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Today's Money</p>
+                  <h4 class="mb-0">$53k</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0" />
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than lask week</p>
               </div>
             </div>
-            <?php }?>
           </div>
-        </div>
-        <br />
-        <br />
-      </section>
-      <!--akhir project-->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#3bedb5"
-          fill-opacity="1"
-          d="M0,128L48,149.3C96,171,192,213,288,208C384,203,480,149,576,149.3C672,149,768,203,864,234.7C960,267,1056,277,1152,245.3C1248,213,1344,139,1392,101.3L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-        ></path>
-      </svg>
-      <!--contact-->
-      <section id="contact">
-        <div id="container pt-5">
-          <div class="row text-center">
-            <h2>Contact</h2>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Today's Users</p>
+                  <h4 class="mb-0">2,300</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0" />
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than lask month</p>
+              </div>
+            </div>
           </div>
-          <div class="row justify-content-center">
-            <div class="col-6">
-              <form action="" method="POST">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email address</label>
-                  <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" />
-                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
                 </div>
-                <div class="mb-3">
-                  <label for="nama" class="form-label">Nama</label>
-                  <input type="name" class="form-control" name="nama_k" id="nama" />
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">New Clients</p>
+                  <h4 class="mb-0">3,462</h4>
                 </div>
-                <div class="mb-3">
-                  <label for="pesan">Pesan</label>
-                  <textarea class="form-control" placeholder="Leave a comment here" name="pesan" id="pesan" style="height: 100px"></textarea>
+              </div>
+              <hr class="dark horizontal my-0" />
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">weekend</i>
                 </div>
-                <br />
-                <button type="submit" name="submit" class="btn btn-primary">Kirim</button>
-              </form>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Sales</p>
+                  <h4 class="mb-0">$103,430</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0" />
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
+              </div>
             </div>
           </div>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path
-            fill="#3bedb5"
-            fill-opacity="1"
-            d="M0,256L48,240C96,224,192,192,288,192C384,192,480,224,576,213.3C672,203,768,149,864,154.7C960,160,1056,224,1152,213.3C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ></path>
-        </svg>
-        <footer class="text-center pb-5">
-          <p>
-            Create With <i class="bi bi-star-fill"></i> by <i class="bi bi-facebook"> <a href="https://m.facebook.com/profile.php?id=100041048507113">Desikurniasari</a></i> <i class="bi bi-instagram"><a href="https://www.instagram.com/dk.sri_12/">dk.sri_12</i></a>
-          </p>
+
+        <footer class="footer py-4">
+          <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+              <div class="col-lg-6 mb-lg-0 mb-4">
+                <div class="copyright text-center text-sm text-muted text-lg-start">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with <i class="fa fa-heart"></i> by
+                  <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                  for a better web.
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </footer>
-      </section>
-      <!--akhir contact-->
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      </div>
+    </main>
+    <div class="fixed-plugin">
+      <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+        <i class="material-icons py-2">settings</i>
+      </a>
+      <div class="card shadow-lg">
+        <div class="card-header pb-0 pt-3">
+          <div class="float-start">
+            <h5 class="mt-3 mb-0">Material UI Configurator</h5>
+            <p>See our dashboard options.</p>
+          </div>
+          <div class="float-end mt-4">
+            <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+              <i class="material-icons">clear</i>
+            </button>
+          </div>
+          <!-- End Toggle Button -->
+        </div>
+        <hr class="horizontal dark my-1" />
+        <div class="card-body pt-sm-3 pt-0">
+          <!-- Sidebar Backgrounds -->
+          <div>
+            <h6 class="mb-0">Sidebar Colors</h6>
+          </div>
+          <a href="javascript:void(0)" class="switch-trigger background-color">
+            <div class="badge-colors my-2 text-start">
+              <span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+              <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+            </div>
+          </a>
+          <!-- Sidenav Type -->
+          <div class="mt-3">
+            <h6 class="mb-0">Sidenav Type</h6>
+            <p class="text-sm">Choose between 2 different sidenav types.</p>
+          </div>
+          <div class="d-flex">
+            <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="sidebarType(this)">Dark</button>
+            <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
+            <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+          </div>
+          <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+          <!-- Navbar Fixed -->
+          <div class="mt-3 d-flex">
+            <h6 class="mb-0">Navbar Fixed</h6>
+            <div class="form-check form-switch ps-0 ms-auto my-auto">
+              <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)" />
+            </div>
+          </div>
+          <hr class="horizontal dark my-3" />
+          <div class="mt-2 d-flex">
+            <h6 class="mb-0">Light / Dark</h6>
+            <div class="form-check form-switch ps-0 ms-auto my-auto">
+              <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)" />
+            </div>
+          </div>
+          <hr class="horizontal dark my-sm-4" />
+          <a class="btn btn-outline-dark w-100" href="">View documentation</a>
+          <div class="w-100 text-center">
+            <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
+            <h6 class="mt-3">Thank you for sharing!</h6>
+            <a
+              href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
+              class="btn btn-dark mb-0 me-2"
+              target="_blank"
+            >
+              <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank"> <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="./assets/js/core/popper.min.js"></script>
+    <script src="./assets/js/core/bootstrap.min.js"></script>
+    <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/chartjs.min.js"></script>
+    <script>
+      var ctx = document.getElementById("chart-bars").getContext("2d");
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["M", "T", "W", "T", "F", "S", "S"],
+          datasets: [
+            {
+              label: "Sales",
+              tension: 0.4,
+              borderWidth: 0,
+              borderRadius: 4,
+              borderSkipped: false,
+              backgroundColor: "rgba(255, 255, 255, .8)",
+              data: [50, 20, 10, 22, 50, 10, 40],
+              maxBarThickness: 6,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          interaction: {
+            intersect: false,
+            mode: "index",
+          },
+          scales: {
+            y: {
+              grid: {
+                drawBorder: false,
+                display: true,
+                drawOnChartArea: true,
+                drawTicks: false,
+                borderDash: [5, 5],
+                color: "rgba(255, 255, 255, .2)",
+              },
+              ticks: {
+                suggestedMin: 0,
+                suggestedMax: 500,
+                beginAtZero: true,
+                padding: 10,
+                font: {
+                  size: 14,
+                  weight: 300,
+                  family: "Roboto",
+                  style: "normal",
+                  lineHeight: 2,
+                },
+                color: "#fff",
+              },
+            },
+            x: {
+              grid: {
+                drawBorder: false,
+                display: true,
+                drawOnChartArea: true,
+                drawTicks: false,
+                borderDash: [5, 5],
+                color: "rgba(255, 255, 255, .2)",
+              },
+              ticks: {
+                display: true,
+                color: "#f8f9fa",
+                padding: 10,
+                font: {
+                  size: 14,
+                  weight: 300,
+                  family: "Roboto",
+                  style: "normal",
+                  lineHeight: 2,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+      new Chart(ctx2, {
+        type: "line",
+        data: {
+          labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          datasets: [
+            {
+              label: "Mobile apps",
+              tension: 0,
+              borderWidth: 0,
+              pointRadius: 5,
+              pointBackgroundColor: "rgba(255, 255, 255, .8)",
+              pointBorderColor: "transparent",
+              borderColor: "rgba(255, 255, 255, .8)",
+              borderColor: "rgba(255, 255, 255, .8)",
+              borderWidth: 4,
+              backgroundColor: "transparent",
+              fill: true,
+              data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+              maxBarThickness: 6,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          interaction: {
+            intersect: false,
+            mode: "index",
+          },
+          scales: {
+            y: {
+              grid: {
+                drawBorder: false,
+                display: true,
+                drawOnChartArea: true,
+                drawTicks: false,
+                borderDash: [5, 5],
+                color: "rgba(255, 255, 255, .2)",
+              },
+              ticks: {
+                display: true,
+                color: "#f8f9fa",
+                padding: 10,
+                font: {
+                  size: 14,
+                  weight: 300,
+                  family: "Roboto",
+                  style: "normal",
+                  lineHeight: 2,
+                },
+              },
+            },
+            x: {
+              grid: {
+                drawBorder: false,
+                display: false,
+                drawOnChartArea: false,
+                drawTicks: false,
+                borderDash: [5, 5],
+              },
+              ticks: {
+                display: true,
+                color: "#f8f9fa",
+                padding: 10,
+                font: {
+                  size: 14,
+                  weight: 300,
+                  family: "Roboto",
+                  style: "normal",
+                  lineHeight: 2,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+
+      new Chart(ctx3, {
+        type: "line",
+        data: {
+          labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          datasets: [
+            {
+              label: "Mobile apps",
+              tension: 0,
+              borderWidth: 0,
+              pointRadius: 5,
+              pointBackgroundColor: "rgba(255, 255, 255, .8)",
+              pointBorderColor: "transparent",
+              borderColor: "rgba(255, 255, 255, .8)",
+              borderWidth: 4,
+              backgroundColor: "transparent",
+              fill: true,
+              data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+              maxBarThickness: 6,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          interaction: {
+            intersect: false,
+            mode: "index",
+          },
+          scales: {
+            y: {
+              grid: {
+                drawBorder: false,
+                display: true,
+                drawOnChartArea: true,
+                drawTicks: false,
+                borderDash: [5, 5],
+                color: "rgba(255, 255, 255, .2)",
+              },
+              ticks: {
+                display: true,
+                padding: 10,
+                color: "#f8f9fa",
+                font: {
+                  size: 14,
+                  weight: 300,
+                  family: "Roboto",
+                  style: "normal",
+                  lineHeight: 2,
+                },
+              },
+            },
+            x: {
+              grid: {
+                drawBorder: false,
+                display: false,
+                drawOnChartArea: false,
+                drawTicks: false,
+                borderDash: [5, 5],
+              },
+              ticks: {
+                display: true,
+                color: "#f8f9fa",
+                padding: 10,
+                font: {
+                  size: 14,
+                  weight: 300,
+                  family: "Roboto",
+                  style: "normal",
+                  lineHeight: 2,
+                },
+              },
+            },
+          },
+        },
+      });
+    </script>
+    <script>
+      var win = navigator.platform.indexOf("Win") > -1;
+      if (win && document.querySelector("#sidenav-scrollbar")) {
+        var options = {
+          damping: "0.5",
+        };
+        Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
+      }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="./assets/js/material-dashboard.min.js?v=3.0.0"></script>
   </body>
 </html>
-
